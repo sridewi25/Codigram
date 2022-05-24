@@ -7,7 +7,7 @@ import UserPostings from '../Postings/UserPostings'
 import AddPostings from '../Postings/AddPostings'
 import EditPage from '../Postings/EditPage'
 import DetailPosting from './PageHomeAfterLogin/DetailPosting'
-import Welcome from './Welcome'
+
 
 
 function HomeAfterLogin() {

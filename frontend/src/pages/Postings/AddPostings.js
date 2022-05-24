@@ -5,9 +5,10 @@ import './style.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage, faQuoteLeft } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
-import {addposting} from '../../actions/PostingAction'
+import {addposting,imageupload} from '../../actions/PostingAction'
 import Swal from 'sweetalert2'
 import {useNavigate} from 'react-router-dom'
+
 
 
 
@@ -18,6 +19,7 @@ function AddPostings() {
 
   const dispatch = useDispatch()
 
+  
   const imageOnChange = (event) =>{
     setImage(event.target.files[0])
   }
@@ -26,11 +28,10 @@ function AddPostings() {
     event.preventDefault();
     const fileupload = new FormData()
     fileupload.append("image",image)
-    console.log(fileupload)
-
+    imageupload(fileupload)
 
     dispatch(addposting(localStorage.getItem("access_token"),
-    {image:Date.now() + '--'+ image.name,
+    {image:'--'+ image.name,
     posting:posting
   },fileupload))
   }

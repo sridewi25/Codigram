@@ -13,7 +13,7 @@ class PostingController{
             res.status(500).json(err.message)
         }
     }
-    static async createPosting(req,res){
+    static async createPosting(req,res,next){
         // console.log(req.file)
         try{
             const {image,posting} = req.body

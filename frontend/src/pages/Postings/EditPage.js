@@ -4,26 +4,36 @@ import image_bg from "./bg-add-page.jpg";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
 import { useDispatch, useSelector } from "react-redux";
-import { updateposting } from "../../actions/PostingAction";
-import { useNavigate } from "react-router-dom";
+import { updateposting,imageupload } from "../../actions/PostingAction";
+import { useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage, faQuoteLeft } from "@fortawesome/free-solid-svg-icons";
 
 function EditPage() {
   const navigate = useNavigate();
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState({});
   const [posting, setPosting] = useState("");
-  const [id, setId] = useState("");
+  const [id, setID] = useState("");
 
   const dispatch = useDispatch();
 
+  
+  const imageOnChange = (event) =>{
+    setImage(event.target.files[0])
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    const fileupload = new FormData()
+    fileupload.append("image",image)
+    imageupload(fileupload)
+
     dispatch(
       updateposting(localStorage.getItem("access_token"), {
-        image: image,
+        image: '--'+ image.name,
         posting: posting,
-      })
+      },+id)
     );
   };
   const { updatePostingUserResult, detailPostingResult } = useSelector(
@@ -39,9 +49,9 @@ function EditPage() {
 
   useEffect(() => {
     if (detailPostingResult) {
-      setImage(detailPostingResult.image)
       setPosting(detailPostingResult.posting)
-      setId(detailPostingResult.id)
+      setID(detailPostingResult.id)
+      setImage(detailPostingResult.image)
     }
   },[detailPostingResult],[dispatch]);
 
@@ -66,8 +76,7 @@ function EditPage() {
                   className="form-control"
                   id="inputGroupFile01"
                   name="image"
-                  value={image}
-                  onChange={(event) => setImage(event.target.value)}
+                  onChange={imageOnChange}
                 />
               </div>
 

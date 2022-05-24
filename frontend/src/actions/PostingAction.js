@@ -183,8 +183,9 @@ const get_posting_detail = (data) => {
 };
 
 
-const updateposting = (access_token, data) => {
+const updateposting = (access_token,data,id) => {
   console.log("2.");
+  console.log(data)
   return (dispatch) => {
     // untuk loading
     dispatch({
@@ -199,7 +200,7 @@ const updateposting = (access_token, data) => {
     // get API
     axios({
       method: "PUT",
-      url: `http://localhost:3000/postings/update_posting/${data.id}`,
+      url: `http://localhost:3000/postings/update_posting/${id}`,
       timeout: 120000,
       headers: {
         Access_Token: access_token,
@@ -337,6 +338,19 @@ const detailposting = (data) => {
   };
 };
 
+const imageupload = (data) => {
+  fetch("http://localhost:3000/single",{
+    method:"POST",
+    body:data,
+  })
+  .then((response) => {
+    console.log(response.data)
+  })
+  .catch((error) => {
+    console.log(error.message)
+  })
+}
+
 export {
   getpostings,
   GET_POSTINGS,
@@ -353,5 +367,6 @@ export {
   DELETE_POSTING,
   deleteposting,
   GET_DETAIL_POSTINGS,
-  get_posting_detail
+  get_posting_detail,
+  imageupload
 };

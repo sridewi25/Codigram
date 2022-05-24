@@ -6,6 +6,7 @@ import {
   detailposting,
   getpostings_user,
   deleteposting,
+  updateposting,
   
 } from "../../actions/PostingAction";
 import { Link, useNavigate } from "react-router-dom";
